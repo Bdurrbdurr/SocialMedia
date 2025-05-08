@@ -1,0 +1,29 @@
+{% extends "posts/post_base.html" %}
+
+{% block post_content %}
+<div class="col-md-8">
+    <h2>Detailed Post</h2><br>
+     <div class="media">
+	    <h2 class="mr-5"><a class="chal" href="{% url 'posts:for_user' username=post.user.username %}">@{{ post.user.username }}</a></h2>
+	
+
+	    <div class="" style="width: 100%;">
+		    <h4 style='word-break: break-word'>{{ post.message_html|safe }}</h4>
+		    {{ post.user.username }}
+		    <time class="time"> | {{ post.created_at }}</time>	
+
+		    <div class="media-footer">
+			    {% if user.is_authenticated and post.user == user and not hide_delete %}
+				  <a href="{% url 'posts:delete' pk=post.pk %}" title="delete" class="btn btn-simple">
+					<span class="fa fa-remove text-danger" aria-hidden="true"></span>
+					<span class="text-danger icon-label">Delete</span>
+				  </a>
+			    {% endif %}
+		    </div><br>
+	    </div>
+     </div>
+    {% if post.group %}
+		  <h5><span class="group-name">in <a class='chal' href="{% url 'groups:single' slug=post.group.slug %}">{{ post.group.name }} Group</a></h5></span><br>
+	  {% endif %}
+</div>
+{% endblock %}

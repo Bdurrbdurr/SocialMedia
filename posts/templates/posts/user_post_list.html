@@ -1,0 +1,19 @@
+{% extends "posts/post_base.html" %}
+
+{% block prepost %}
+<div class="col-md-4">
+	<h1>@{{ post_user.username }}</h1><br>
+	<h3>Post History</h3><br>
+</div>
+{% endblock %}
+
+{% block post_content %}
+<div class="col-md-8">
+	{% for post in post_list %}
+		{% include "posts/_post.html" %}
+		{% if post.group %}
+			<h5><span class="group-name">in <a class='chal' href="{% url 'groups:single' slug=post.group.slug %}">{{ post.group.name }} Group</a></h5></span><br>
+		{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}
